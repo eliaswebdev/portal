@@ -1,0 +1,13 @@
+<%= simple_form_for @editoria, :html => { :class => 'form-vertical' } do |f| %>
+  	
+  <div class="form-inputs">
+	  <%= f.input :nome %> 
+	  <%= f.input :status, as: :radio_buttons, collection: [['Publicado', true], ['Não Publicado', false]], prompt: 'Selecione' %>
+  </div>
+  	
+  <div class="form-actions">
+	  <%= f.button :submit, :class => 'btn-primary' %>
+	  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+	                editorias_path, :class => 'btn btn-default' %>
+  </div>
+<% end %>

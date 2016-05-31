@@ -1,0 +1,19 @@
+<%= simple_form_for @noticia, :html => { :class => 'form-vertical' } do |f| %>    
+  <div class="form-inputs">
+    <%= f.input :usuario_id, as: :select, collection: Usuario.all.order(nome: :asc).map {|u| ["#{u.nome} - #{u.email}", u.id]}, prompt: 'Selecione o Usuário' %>
+    <%= f.association :editoria, collection: Editoria.all.order(nome: :asc).map {|e| [e.nome, e.id]}, prompt: 'Selecione a Editoria' %>
+    <%= f.input :titulo %>
+    <%= f.input :subtitulo %>
+    <%= f.input :conteudo %>
+    <%= f.input :data_publicacao %>
+    <%= f.input :imagem %>
+    <%= f.input :status, as: :radio_buttons, collection: [['Publicado', true], ['Não Publicado', false]] %>
+    <%= f.association :marcadores, as: :check_boxes, collection: Marcador.all.order(nome: :asc).map {|m| [m.nome, m.id]} %>
+  </div>
+    
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                  noticias_path, :class => 'btn btn-default' %>
+  </div>
+<% end %>

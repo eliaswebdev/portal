@@ -1,0 +1,23 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: 5
+  username: root
+  password: root
+  host: 127.0.0.1
+  # socket: /tmp/mysql.sock
+
+development:
+  <<: *default
+  database: portal_development
+
+
+test:
+  <<: *default
+  database: portal_test
+
+production:
+  <<: *default
+  database: portal_production
+  username: portal
+  password: <%= ENV['PORTAL_DATABASE_PASSWORD'] %>
