@@ -1,0 +1,33 @@
+<%- model_class = Noticia -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
+  <dd><%= @noticia.user.try(:nome) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:editoria_id) %>:</strong></dt>
+  <dd><%= @noticia.editoria.try(:nome) %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:titulo) %>:</strong></dt>
+  <dd><%= @noticia.titulo %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:subtitulo) %>:</strong></dt>
+  <dd><%= @noticia.subtitulo %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:conteudo) %>:</strong></dt>
+  <dd><%= @noticia.conteudo %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:data_publicacao) %>:</strong></dt>
+  <dd><%= @noticia.data_publicacao %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:imagem) %>:</strong></dt>
+  <dd><%= image_tag @noticia.imagem, size: '300x300' %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
+  <dd><%= @noticia.status %></dd>
+</dl>
+
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              admin_noticias_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_admin_noticia_path(@noticia), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              admin_noticia_path(@noticia),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>

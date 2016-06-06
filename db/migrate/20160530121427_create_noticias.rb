@@ -1,7 +1,7 @@
 class CreateNoticias < ActiveRecord::Migration
   def change
     create_table :noticias do |t|
-      t.belongs_to :usuario, index: true, foreign_key: true
+      t.belongs_to :user, index: true, foreign_key: true
       t.references :editoria, index: true, foreign_key: true
       t.string :titulo
       t.string :subtitulo

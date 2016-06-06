@@ -1,13 +1,23 @@
-require 'ffaker'
+# require 'ffaker'
+# 100.times do 
+# 	Usuario.create(
+# 		nome: FFaker::NameBR.name,
+# 		email: FFaker::Internet.email,
+# 		senha: '1234567890',
+# 		genero: [0, 1].shuffle.first,
+# 	)
+# end
 
-100.times do 
-	Usuario.create(
-		nome: FFaker::NameBR.name,
-		email: FFaker::Internet.email,
-		senha: '1234567890',
-		genero: [0, 1].shuffle.first,
-	)
-end
+User.create!([
+	{
+		email: 'admin@portalruby.com.br',
+		password: '1234567890',
+	},
+	{
+		email: 'editor@portalruby.com.br',
+		password: '1234567890',
+	},
+])
 
 
 editorias = Editoria.create!([
@@ -30,7 +40,7 @@ marcadores = Marcador.create!([
 
 10.times do |i|
 	Noticia.create!(
-		usuario_id: Usuario.all.order('RAND()').first.id, 
+		user_id: User.all.order('RAND()').first.id, 
 		editoria: Editoria.all.order('RAND()').first, 
 		titulo: "Titulo da notícia numero #{i}", 
 		subtitulo: "Subtitulo da notícia numero #{i}", 

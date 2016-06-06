@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160530130417) do
+ActiveRecord::Schema.define(version: 20160606115728) do
 
   create_table "editorias", force: :cascade do |t|
     t.string   "nome",       limit: 255
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160530130417) do
   add_index "marcadores_noticias", ["noticia_id"], name: "index_marcadores_noticias_on_noticia_id", using: :btree
 
   create_table "noticias", force: :cascade do |t|
-    t.integer  "usuario_id",      limit: 4
+    t.integer  "user_id",         limit: 4
     t.integer  "editoria_id",     limit: 4
     t.string   "titulo",          limit: 255
     t.string   "subtitulo",       limit: 255
@@ -48,19 +48,29 @@ ActiveRecord::Schema.define(version: 20160530130417) do
   end
 
   add_index "noticias", ["editoria_id"], name: "index_noticias_on_editoria_id", using: :btree
-  add_index "noticias", ["usuario_id"], name: "index_noticias_on_usuario_id", using: :btree
+  add_index "noticias", ["user_id"], name: "index_noticias_on_user_id", using: :btree
 
-  create_table "usuarios", force: :cascade do |t|
-    t.string   "nome",       limit: 255
-    t.string   "email",      limit: 255
-    t.string   "senha",      limit: 255
-    t.integer  "genero",     limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                  limit: 255, default: "", null: false
+    t.string   "encrypted_password",     limit: 255, default: "", null: false
+    t.string   "reset_password_token",   limit: 255
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip",     limit: 255
+    t.string   "last_sign_in_ip",        limit: 255
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
+    t.string   "name",                   limit: 255
   end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "marcadores_noticias", "marcadores"
   add_foreign_key "marcadores_noticias", "noticias"
   add_foreign_key "noticias", "editorias"
-  add_foreign_key "noticias", "usuarios"
+  add_foreign_key "noticias", "users"
 end
