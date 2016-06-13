@@ -2,10 +2,10 @@
   <%= menu_group do %>
       <%= menu_item "Site", root_path, target: '_blank' %>
 
-      <%= menu_item "Usuários", admin_users_path  %>
-      <%= menu_item "Editorias", admin_editorias_path  %>
-      <%= menu_item "Marcadores", admin_marcadores_path  %>
-      <%= menu_item "Noticias", admin_noticias_path  %>
+      <%= menu_item "Usuários", admin_users_path if permitted_to? :manage, :admin_users %>
+      <%= menu_item "Editorias", admin_editorias_path if permitted_to? :read, :admin_editorias %>
+      <%= menu_item "Marcadores", admin_marcadores_path if permitted_to? :manage, :admin_marcadores %>
+      <%= menu_item "Noticias", admin_noticias_path if permitted_to? :manage, :admin_noticias %>
   <% end -%>
 
   <%= menu_group :pull => :right do %>

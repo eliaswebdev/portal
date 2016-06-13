@@ -3,6 +3,9 @@
   <%= f.input :email %>
   <%= f.input :password if f.object.new_record? %>
 
+  <%= f.association :roles, as: :check_boxes -%>
+
+
   <%= f.button :submit, :class => 'btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
                 admin_users_path, :class => 'btn btn-default' %>

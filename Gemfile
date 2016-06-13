@@ -23,6 +23,7 @@ gem 'ffaker'
 gem 'kaminari'
 
 gem 'devise'
+gem 'declarative_authorization'
 
 gem 'carrierwave'
 

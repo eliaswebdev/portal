@@ -1,0 +1,32 @@
+pt-BR:
+  activerecord:
+    models:
+      category: Categoria
+      product: Produto
+      user: Usuário
+
+    attributes:
+      category:
+        name: 'Nome'
+
+      product:
+        category_id: Categoria
+        name: Nome
+        description: Descrição
+        price: Preço
+        status: Situação
+        created_at: Cadatrado Em
+        updated_at: Atualizado Em
+
+      user:
+        name: Nome
+        email: E-mail
+        password: Senha
+        password_confirmation: Confirme sua Senha
+        current_password: Senha Atual
+        remember_me: Lembrar senha
+
+
+
+
+

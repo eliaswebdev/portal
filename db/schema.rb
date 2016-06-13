@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160606115728) do
+ActiveRecord::Schema.define(version: 20160613120821) do
 
   create_table "editorias", force: :cascade do |t|
     t.string   "nome",       limit: 255
@@ -50,6 +50,24 @@ ActiveRecord::Schema.define(version: 20160606115728) do
   add_index "noticias", ["editoria_id"], name: "index_noticias_on_editoria_id", using: :btree
   add_index "noticias", ["user_id"], name: "index_noticias_on_user_id", using: :btree
 
+  create_table "permissions", force: :cascade do |t|
+    t.integer  "role_id",    limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "permissions", ["role_id"], name: "index_permissions_on_role_id", using: :btree
+  add_index "permissions", ["user_id"], name: "index_permissions_on_user_id", using: :btree
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",        limit: 255
+    t.string   "description", limit: 255
+    t.string   "value",       limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false
@@ -73,4 +91,6 @@ ActiveRecord::Schema.define(version: 20160606115728) do
   add_foreign_key "marcadores_noticias", "noticias"
   add_foreign_key "noticias", "editorias"
   add_foreign_key "noticias", "users"
+  add_foreign_key "permissions", "roles"
+  add_foreign_key "permissions", "users"
 end
