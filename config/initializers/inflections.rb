@@ -52,4 +52,5 @@ ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular "role", "roles"
   inflect.irregular "permission", "permissions"  
   inflect.irregular "editoria", "editorias"  
+  inflect.irregular "profile", "profiles"  
 end

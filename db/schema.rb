@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160613120821) do
+ActiveRecord::Schema.define(version: 20160615115625) do
 
   create_table "editorias", force: :cascade do |t|
     t.string   "nome",       limit: 255
@@ -60,6 +60,17 @@ ActiveRecord::Schema.define(version: 20160613120821) do
   add_index "permissions", ["role_id"], name: "index_permissions_on_role_id", using: :btree
   add_index "permissions", ["user_id"], name: "index_permissions_on_user_id", using: :btree
 
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "user_id",       limit: 4
+    t.string   "avatar",        limit: 255
+    t.date     "date_of_birth"
+    t.string   "gender",        limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "profiles", ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
   create_table "roles", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.string   "description", limit: 255
@@ -93,4 +104,5 @@ ActiveRecord::Schema.define(version: 20160613120821) do
   add_foreign_key "noticias", "users"
   add_foreign_key "permissions", "roles"
   add_foreign_key "permissions", "users"
+  add_foreign_key "profiles", "users"
 end

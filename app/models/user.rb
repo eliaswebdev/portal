@@ -9,6 +9,13 @@ class User < ActiveRecord::Base
 	has_many :noticias
 	has_many :permissions
 	has_many :roles, :through => :permissions
+	has_one  :profile, :dependent => :destroy, :inverse_of => :user
+	accepts_nested_attributes_for :profile, :allow_destroy => true
+
+	# INICIALIZAÇÃO RELACIONAMENTO
+	after_initialize do
+		self.profile ||= self.build_profile()
+	end
 
 
   	# DECLARATIVE AUTHORIZATION

@@ -1,12 +1,21 @@
-<%= simple_form_for [:admin, @user], :html => { :class => 'form-vertical' } do |f| %>
-  <%= f.input :name %>
-  <%= f.input :email %>
-  <%= f.input :password if f.object.new_record? %>
+<%= simple_nested_form_for [:admin, @user], :html => { :class => 'form-vertical' } do |f| %>
+	<%= f.input :name %>
+	<%= f.input :email %>
+	<%= f.input :password if f.object.new_record? %>
 
-  <%= f.association :roles, as: :check_boxes -%>
+	<legend>Perfil</legend>
+	<%= f.fields_for :profile do |p| %>
+		<%= p.input :avatar %>
+		<%= p.input :date_of_birth, start_year: (Date.current - 18.years).year, end_year: 1960 %>
+		<%= p.input :gender, as: :radio_buttons, collection: Profile::GENDER %>
+	<% end -%>
 
 
-  <%= f.button :submit, :class => 'btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                admin_users_path, :class => 'btn btn-default' %>
+
+	<%= f.association :roles, as: :check_boxes -%>
+
+
+	<%= f.button :submit, :class => 'btn-primary' %>
+	<%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+	            admin_users_path, :class => 'btn btn-default' %>
 <% end %>

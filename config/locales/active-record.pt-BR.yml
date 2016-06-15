@@ -4,6 +4,7 @@ pt-BR:
       category: Categoria
       product: Produto
       user: Usuário
+      profile: Perfil
 
     attributes:
       category:
@@ -25,7 +26,10 @@ pt-BR:
         password_confirmation: Confirme sua Senha
         current_password: Senha Atual
         remember_me: Lembrar senha
-
+      
+      profile:
+        date_of_birth: Data de Nascimento
+        gender: Gênero
 
 
 

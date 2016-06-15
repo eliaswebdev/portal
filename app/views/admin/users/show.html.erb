@@ -16,7 +16,15 @@
   <dd><%= @user.last_sign_in_ip %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @user.name %></dd>
+  <legend>Perfil</legend>
+  <dt><strong>Avatar</strong></dt>
+  <dd><%= image_tag @user.profile.avatar_url, size: '50x50' %></dd>
+  <dt><strong>Data de Nascimento</strong></dt>
+  <dd><%=l @user.profile.try(:date_of_birth)%></dd>
+  <dt><strong>Gênero</strong></dt>
+  <dd><%= gender @user.profile.try(:gender)%></dd>
 </dl>
+
 
 <legend>Permissões</legend>
 <ul>
