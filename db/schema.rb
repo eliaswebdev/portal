@@ -11,7 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160615115625) do
+ActiveRecord::Schema.define(version: 20160615124855) do
+
+  create_table "ckeditor_assets", force: :cascade do |t|
+    t.string   "data_file_name",    limit: 255, null: false
+    t.string   "data_content_type", limit: 255
+    t.integer  "data_file_size",    limit: 4
+    t.integer  "assetable_id",      limit: 4
+    t.string   "assetable_type",    limit: 30
+    t.string   "type",              limit: 30
+    t.integer  "width",             limit: 4
+    t.integer  "height",            limit: 4
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ckeditor_assets", ["assetable_type", "assetable_id"], name: "idx_ckeditor_assetable", using: :btree
+  add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
+
+  create_table "documentos", force: :cascade do |t|
+    t.integer  "noticia_id", limit: 4
+    t.string   "nome",       limit: 255
+    t.text     "descricao",  limit: 65535
+    t.string   "arquivo",    limit: 255
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "documentos", ["noticia_id"], name: "index_documentos_on_noticia_id", using: :btree
 
   create_table "editorias", force: :cascade do |t|
     t.string   "nome",       limit: 255
@@ -79,6 +106,18 @@ ActiveRecord::Schema.define(version: 20160615115625) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "telefones", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.string   "operadora",  limit: 255
+    t.integer  "ddd",        limit: 4
+    t.string   "numero",     limit: 255
+    t.boolean  "whatsapp"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "telefones", ["user_id"], name: "index_telefones_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
     t.string   "encrypted_password",     limit: 255, default: "", null: false
@@ -98,6 +137,7 @@ ActiveRecord::Schema.define(version: 20160615115625) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "documentos", "noticias"
   add_foreign_key "marcadores_noticias", "marcadores"
   add_foreign_key "marcadores_noticias", "noticias"
   add_foreign_key "noticias", "editorias"
@@ -105,4 +145,5 @@ ActiveRecord::Schema.define(version: 20160615115625) do
   add_foreign_key "permissions", "roles"
   add_foreign_key "permissions", "users"
   add_foreign_key "profiles", "users"
+  add_foreign_key "telefones", "users"
 end

@@ -1,15 +1,27 @@
-<%= simple_form_for [:admin,@noticia], :html => { :class => 'form-vertical' } do |f| %>    
+<%= simple_nested_form_for [:admin,@noticia], :html => { :class => 'form-vertical' } do |f| %>    
   <div class="form-inputs">
-    <%= f.input :user_id, as: :select, collection: User.all.order(email: :asc).map {|u| ["#{u.email}", u.id]}, prompt: 'Selecione o Usuário' %>
     <%= f.association :editoria, collection: Editoria.all.order(nome: :asc).map {|e| [e.nome, e.id]}, prompt: 'Selecione a Editoria' %>
     <%= f.input :titulo %>
     <%= f.input :subtitulo %>
-    <%= f.input :conteudo %>
+    <%= f.input :conteudo, as: :ckeditor %>
     <%= f.input :data_publicacao %>
     <%= f.input :imagem %>
     <%= f.input :status, as: :radio_buttons, collection: [['Publicado', true], ['Não Publicado', false]] %>
     <%= f.association :marcadores, as: :check_boxes, collection: Marcador.all.order(nome: :asc).map {|m| [m.nome, m.id]} %>
   </div>
+    
+    <legend>Documentos</legend>
+    
+    <%= f.fields_for :documentos do |d| %>
+      <%= d.input :nome %>
+      <%= d.input :descricao %>
+      <%= d.input :arquivo %>
+      <%= d.link_to_remove "Excluir", class: 'btn btn-danger btn-xs' %>
+    <hr>
+    <% end %>
+  
+  <p><%= f.link_to_add "Adicionar Documento", :documentos, class: 'btn btn-success' %></p>
+
     
   <div class="form-actions">
     <%= f.button :submit, :class => 'btn-primary' %>

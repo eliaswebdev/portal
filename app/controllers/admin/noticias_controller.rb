@@ -4,7 +4,11 @@ class Admin::NoticiasController < AdminController
   # GET /noticias
   # GET /noticias.json
   def index
-    @noticias = Noticia.all
+    if current_user.is_admin?
+      @noticias = Noticia.page(params[:page])
+    else
+      @noticias = current_user.noticias.page(params[:page])
+    end
   end
 
   # GET /noticias/1
@@ -25,6 +29,7 @@ class Admin::NoticiasController < AdminController
   # POST /noticias.json
   def create
     @noticia = Noticia.new(noticia_params)
+    @noticia.user = current_user
 
     respond_to do |format|
       if @noticia.save
@@ -69,6 +74,9 @@ class Admin::NoticiasController < AdminController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def noticia_params
-      params.require(:noticia).permit(:usuario_id, :editoria_id, :titulo, :subtitulo, :conteudo, :data_publicacao, :imagem, :status, {:marcador_ids => []})
+      params.require(:noticia).permit(:editoria_id, :titulo, :subtitulo, :conteudo, :data_publicacao, :imagem, :status, 
+          {:marcador_ids => []},
+          documentos_attributes: [:id, :nome, :descricao, :arquivo, :_destroy]
+        )
     end
 end

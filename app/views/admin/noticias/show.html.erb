@@ -13,14 +13,28 @@
   <dt><strong><%= model_class.human_attribute_name(:subtitulo) %>:</strong></dt>
   <dd><%= @noticia.subtitulo %></dd>
   <dt><strong><%= model_class.human_attribute_name(:conteudo) %>:</strong></dt>
-  <dd><%= @noticia.conteudo %></dd>
+  <dd><%= @noticia.conteudo.html_safe %></dd>
   <dt><strong><%= model_class.human_attribute_name(:data_publicacao) %>:</strong></dt>
   <dd><%= @noticia.data_publicacao %></dd>
   <dt><strong><%= model_class.human_attribute_name(:imagem) %>:</strong></dt>
-  <dd><%= image_tag @noticia.imagem, size: '300x300' %></dd>
+  <dd><%= image_tag @noticia.imagem, size: '300x300' if @noticia.imagem.present? %></dd>
   <dt><strong><%= model_class.human_attribute_name(:status) %>:</strong></dt>
   <dd><%= @noticia.status %></dd>
 </dl>
+
+
+<legend>Documentos</legend>
+<ul>
+  <% @noticia.documentos.each do |documento| -%>
+  <li>
+    <%= link_to documento.arquivo_url, target: '_blank' do %>
+      <%= documento.nome %> <br>
+      <%= documento.descricao %>
+    <% end -%>
+  </li>
+  <% end -%>
+</ul>
+
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               admin_noticias_path, :class => 'btn btn-default'  %>

@@ -10,6 +10,20 @@
 		<%= p.input :gender, as: :radio_buttons, collection: Profile::GENDER %>
 	<% end -%>
 
+	<legend>Telefones</legend>
+		
+		<%= f.fields_for :telefones do |t| %>
+		<div class="form-inline">
+		  <%= t.input :operadora, as: :select, collection: Telefone::TIPOS, label: false, prompt: 'Selecione' %>
+		  <%= t.input :ddd, label: false, input_html: {placeholder: 'DDD'} %>
+		  <%= t.input :numero, label: false, input_html: {placeholder: 'Número'} %>
+		  <%= t.input :whatsapp %>
+		  <%= t.link_to_remove "Excluir", class: 'btn btn-danger btn-xs' %>
+		</div>
+		<hr>
+		<% end %>
+	
+	<p><%= f.link_to_add "Adicionar Telefone", :telefones, class: 'btn btn-success' %></p>
 
 
 	<%= f.association :roles, as: :check_boxes -%>

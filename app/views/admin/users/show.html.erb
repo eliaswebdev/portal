@@ -26,6 +26,18 @@
 </dl>
 
 
+<legend>Telefones</legend>
+<ul>
+  <% @user.telefones.each do |telefone| -%>
+  <li>
+    <%= telefone.operadora %> -
+    <%= telefone.ddd %> -
+    <%= telefone.numero %> -
+    <%= telefone.whatsapp %>    
+  </li>
+  <% end -%>
+</ul>
+
 <legend>Permissões</legend>
 <ul>
   <% @user.roles.each do |role| -%>

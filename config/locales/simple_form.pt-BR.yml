@@ -8,3 +8,7 @@ pt-BR:
       html: '<abbr title="requerido">*</abbr>'
     error_notification:
       default_message: "Alguns erros foram encontrados:"
+
+  errors:
+    messages:
+      extension_white_list_error: Arquivo não permitido
